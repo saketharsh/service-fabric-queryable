@@ -73,10 +73,14 @@ namespace ServiceFabric.Extensions.Services.Queryable
 		/// <param name="cancellationToken">Cancellation token.</param>
 		/// <returns>The json serialized results of the query.</returns>
 		public static async Task<IEnumerable<JToken>> QueryAsync(this IReliableStateManager stateManager,
-			StatefulServiceContext serviceContext, HttpContext httpContext, string collection, IEnumerable<KeyValuePair<string, string>> query, CancellationToken cancellationToken)
+			StatefulServiceContext serviceContext, HttpContext httpContext, string collection, IEnumerable<KeyValuePair<string, string>> query, bool isStandaloneReplica, CancellationToken cancellationToken)
 		{
 			// Get the list of partitions (excluding the executing partition).
-			var partitions = await StatefulServiceUtils.GetPartitionsAsync(serviceContext).ConfigureAwait(false);
+			var partitions = Enumerable.Empty<Partition>();
+			if (!isStandaloneReplica)
+			{
+				partitions = await StatefulServiceUtils.GetPartitionsAsync(serviceContext).ConfigureAwait(false);
+			}
 
 			// Query all service partitions concurrently.
 			var remoteQueries = partitions.Select(p => QueryPartitionAsync(p, serviceContext, collection, query, cancellationToken));

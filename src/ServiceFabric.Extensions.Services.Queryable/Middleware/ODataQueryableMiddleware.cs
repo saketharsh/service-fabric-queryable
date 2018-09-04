@@ -21,6 +21,8 @@ namespace ServiceFabric.Extensions.Services.Queryable
 	{
 		private static readonly char[] PathSplit = new[] { '/' };
 
+		public static bool IsStandaloneReplica = false;
+
         public static int MaxElementsToReturn
         {
             get => ODataQueryOptions.MaxTop;
@@ -117,7 +119,7 @@ namespace ServiceFabric.Extensions.Services.Queryable
 		{
 			// Query the reliable collection for all partitions.
 			var query = httpContext.Request.Query.Select(p => new KeyValuePair<string, string>(p.Key, p.Value));
-			var results = await stateManager.QueryAsync(serviceContext, httpContext, collection, query, CancellationToken.None).ConfigureAwait(false);
+			var results = await stateManager.QueryAsync(serviceContext, httpContext, collection, query, IsStandaloneReplica, CancellationToken.None).ConfigureAwait(false);
 
 			httpContext.Response.ContentType = "application/json";
 			httpContext.Response.StatusCode = (int)HttpStatusCode.OK;
@@ -261,8 +263,9 @@ namespace ServiceFabric.Extensions.Services.Queryable
 
 	public static class ODataQueryableMiddlewareExtensions
 	{
-		public static IApplicationBuilder UseODataQueryable(this IApplicationBuilder app)
+		public static IApplicationBuilder UseODataQueryable(this IApplicationBuilder app, bool isStandaloneReplica = false)
 		{
+			ODataQueryableMiddleware.IsStandaloneReplica = isStandaloneReplica;
 			return app.UseMiddleware<ODataQueryableMiddleware>();
 		}
 	}
