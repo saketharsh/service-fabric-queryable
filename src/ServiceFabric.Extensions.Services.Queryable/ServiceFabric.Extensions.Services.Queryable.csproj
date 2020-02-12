@@ -14,7 +14,7 @@
     <!-- Enable delay signing with Key.snk -->
     <SignAssembly>true</SignAssembly>
     <DelaySign>true</DelaySign>
-    <AssemblyOriginatorKeyFile>e:\service-fabric-backup-explorer\properties\Key.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>D:\repos\backupExplorer\properties\Key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,7 +25,7 @@
     <PackageReference Include="Microsoft.ServiceFabric" Version="6.4.658" />
     <PackageReference Include="Microsoft.ServiceFabric.Data" Version="3.3.658" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
-    <PackageReference Include="ServiceFabric.Extensions.Data.Indexing" Version="3.1.658" />
+    <PackageReference Include="ServiceFabric.Extensions.Data.Indexing" Version="3.2.638" />
     <PackageReference Include="System.Linq.Dynamic" Version="1.0.7" />
   </ItemGroup>
 
