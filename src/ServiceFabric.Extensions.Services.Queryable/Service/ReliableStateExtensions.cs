@@ -36,6 +36,8 @@ namespace ServiceFabric.Extensions.Services.Queryable
 	{
 		private static readonly QueryModelCache QueryCache = new QueryModelCache();
 
+        private static readonly  Dictionary<string, string> dictEntityMap = new Dictionary<string, string>();
+
 		/// <summary>
 		/// Get the OData metadata about the reliable collections from the reliable state manager using reflection.
 		/// </summary>
@@ -47,8 +49,12 @@ namespace ServiceFabric.Extensions.Services.Queryable
 			var builder = new ODataConventionModelBuilder();
 			foreach (var queryable in await stateManager.GetQueryableTypes().ConfigureAwait(false))
 			{
+                var qkey = queryable.Key;
+                var qkey2 = qkey.Replace('.','#');
+                Console.WriteLine(qkey2);
+                dictEntityMap.Add(queryable.Key, qkey2);
 				var entity = builder.AddEntity(queryable.Value);
-				builder.AddEntitySet(queryable.Key, entity);
+				builder.AddEntitySet(qkey2, entity);
 			}
 			var model = builder.GetEdmModel();
 

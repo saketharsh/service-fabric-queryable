@@ -68,8 +68,8 @@
     <Reference Include="Microsoft.ServiceFabric.Services.Remoting, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=AMD64">
       <HintPath>..\..\..\src\packages\Microsoft.ServiceFabric.Services.Remoting.3.3.658\lib\net461\Microsoft.ServiceFabric.Services.Remoting.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceFabric.Extensions.Data.Indexing, Version=3.2.638.0, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>..\..\..\src\packages\ServiceFabric.Extensions.Data.Indexing.3.2.638\lib\netstandard2.0\ServiceFabric.Extensions.Data.Indexing.dll</HintPath>
+    <Reference Include="ServiceFabric.Extensions.Data.Indexing, Version=3.1.300.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\src\packages\ServiceFabric.Extensions.Data.Indexing.3.1.300\lib\netstandard2.0\ServiceFabric.Extensions.Data.Indexing.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
